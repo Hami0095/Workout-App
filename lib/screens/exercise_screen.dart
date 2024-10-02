@@ -1,38 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health_tracker_flutter/models/exercise.dart';
-import 'package:health_tracker_flutter/services/api_service.dart';
 import 'package:health_tracker_flutter/widgets/exercise_card.dart';
+import 'package:health_tracker_flutter/providers/exercise_provider.dart'; // Import your provider
 
-class ExerciseScreen extends StatelessWidget {
-  final ApiService apiService = ApiService();
-
-  ExerciseScreen({super.key});
+class ExerciseScreen extends ConsumerWidget {
+  const ExerciseScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final exercises = ref.watch(selectedExercisesProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Exercises'),
       ),
-      body: FutureBuilder<List<Exercise>>(
-        future: apiService.fetchExercises(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No exercises found'));
-          } else {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
+      body: exercises.isEmpty
+          ? const Center(child: Text('No selected exercises'))
+          : ListView.builder(
+              itemCount: exercises.length,
               itemBuilder: (context, index) {
-                return ExerciseCard(exercise: snapshot.data![index]);
+                final exercise = exercises[index];
+                return ExerciseCard(
+                  exercise: exercise,
+                  onSelected: (isSelected) {
+                    if (isSelected) {
+                      ref
+                          .read(selectedExercisesProvider.notifier)
+                          .addSelectedExercise(exercise);
+                    } else {
+                      ref
+                          .read(selectedExercisesProvider.notifier)
+                          .removeSelectedExercise(exercise);
+                    }
+                  },
+                );
               },
-            );
-          }
-        },
-      ),
+            ),
     );
   }
 }

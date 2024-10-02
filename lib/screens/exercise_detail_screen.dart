@@ -27,7 +27,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
         // ignore: deprecated_member_use
         title: Text(
           widget.exercise.name,
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
         centerTitle: true,
         foregroundColor: Colors.white,

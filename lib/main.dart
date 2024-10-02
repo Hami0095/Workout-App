@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_tracker_flutter/screens/main_screen.dart';
+import 'package:health_tracker_flutter/screens/personal_data_screen.dart';
 import 'package:provider/provider.dart';
 import 'providers/workout_provider.dart';
 import 'screens/home_screen.dart';
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.black,
         textTheme: TextTheme(
           // ignore: deprecated_member_use
-          headline1: GoogleFonts.righteous(
+          displayLarge: GoogleFonts.righteous(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             color: const Color.fromARGB(255, 0, 236, 0),
@@ -32,9 +34,9 @@ class MyApp extends StatelessWidget {
           headlineLarge: GoogleFonts.righteous(
               fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
           // ignore: deprecated_member_use
-          bodyText1: GoogleFonts.righteous(fontSize: 16, color: Colors.white),
+          bodyLarge: GoogleFonts.righteous(fontSize: 16, color: Colors.white),
           // ignore: deprecated_member_use
-          bodyText2: GoogleFonts.righteous(fontSize: 14, color: Colors.white),
+          bodyMedium: GoogleFonts.righteous(fontSize: 14, color: Colors.white),
         ),
         dividerColor: const Color.fromARGB(255, 0, 236, 0), // Bright yellow
         appBarTheme: AppBarTheme(
@@ -60,7 +62,7 @@ class MyApp extends StatelessWidget {
             const Color.fromARGB(255, 253, 253, 253), // Bright green
         cardColor: Color.fromARGB(255, 39, 53, 54),
       ),
-      home: HomeScreen(),
+      home: MainScreen(),
     );
   }
 }

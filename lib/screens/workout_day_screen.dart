@@ -17,7 +17,7 @@ class WorkoutDayScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           day.name,
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
         centerTitle: true,
         actions: [
@@ -47,7 +47,7 @@ class WorkoutDayScreen extends StatelessWidget {
             child: ListTile(
               leading: Image.asset("assets/${exercise.images[0]}"),
               title: Text(exercise.name,
-                  style: Theme.of(context).textTheme.headline1?.copyWith(
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
                       fontSize: 20,
                       fontWeight: FontWeight.w500,
                       color: Colors.white)),
